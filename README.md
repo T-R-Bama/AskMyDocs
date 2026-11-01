@@ -66,7 +66,7 @@ flowchart LR
 Prérequis : Python 3.10 ou plus récent.
 
 ```bash
-git clone https://github.com/GITHUB_USER/chatbot-rag.git
+git clone https://github.com/T-R-Bama/chatbot-rag.git
 cd chatbot-rag
 python3 -m venv .venv
 source .venv/bin/activate        # Windows : .venv\Scripts\activate
