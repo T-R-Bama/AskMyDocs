@@ -127,6 +127,11 @@ def summarize(rows: list[dict], label: str, retrieval_only: bool) -> dict:
     return summary
 
 
+def describe_config(embedding_model: str, chunk_size: int, overlap: int, hybrid: bool) -> str:
+    emb = embedding_model.split("/")[-1].replace("paraphrase-multilingual-", "")
+    return f"{emb}-{chunk_size}c-{overlap}o-{'hybride' if hybrid else 'semantique'}"
+
+
 def write_report() -> None:
     """Regroupe tous les résultats enregistrés dans evaluation/RESULTS.md."""
     runs = [json.loads(p.read_text()) for p in sorted(RESULTS_DIR.glob("*.json"))]
@@ -137,16 +142,16 @@ def write_report() -> None:
         "",
         "## Recherche (18 questions avec réponse dans les documents)",
         "",
-        "| Configuration | Bon passage en 1ʳᵉ position | Bon passage dans le top 5 | Bon document en 1ʳᵉ position | MRR |",
+        "| Configuration de la recherche | Bon passage en 1ʳᵉ position | Bon passage dans le top 5 | Bon document en 1ʳᵉ position | MRR |",
         "|---|---|---|---|---|",
     ]
     seen = set()
-    for run in runs:
+    for run in sorted(runs, key=lambda run: run["summary"]["retrieval"]["mrr"]):
         r = run["summary"]["retrieval"]
-        if run["embedding_model"] in seen:  # la recherche ne dépend pas du LLM
+        if run["config"] in seen:  # la recherche ne dépend pas du LLM
             continue
-        seen.add(run["embedding_model"])
-        lines.append(f"| Embeddings `{run['embedding_model'].split('/')[-1]}` | {r['hit@1']} % | {r['hit@5']} % | {r['source@1']} % | {r['mrr']} |")
+        seen.add(run["config"])
+        lines.append(f"| `{run['config']}` | {r['hit@1']} % | {r['hit@5']} % | {r['source@1']} % | {r['mrr']} |")
     lines += [
         "",
         "## Génération (20 questions, dont 2 sans réponse dans les documents)",
@@ -160,14 +165,14 @@ def write_report() -> None:
             judge_cell = f"{g['judge_correct']} %" if g["judge_correct"] is not None else "—"
             abst_cell = f"{g['abstention_ok']} %" if g["abstention_ok"] is not None else "—"
             lines.append(
-                f"| {run['summary']['label']} (`{run['embedding_model'].split('/')[-1]}`) | {judge_cell} | {g['facts_ok']} % | "
+                f"| {run['summary']['label']} · `{run['config']}` | {judge_cell} | {g['facts_ok']} % | "
                 f"{abst_cell} | {g['cites_source']} % | {g['avg_seconds']} s |"
             )
     lines += ["", "## Points faibles (bon passage pas en 1ʳᵉ position, ou réponse jugée incorrecte)", ""]
     for run in runs:
         errors = [r for r in run["rows"] if r.get("judge_correct") is False or (r["evidence"] and r["rank"] != 1)]
         if run["summary"].get("generation") and errors:
-            lines.append(f"### {run['summary']['label']}")
+            lines.append(f"### {run['summary']['label']} · `{run['config']}`")
             lines.append("")
             for r in errors:
                 problems = []
@@ -187,8 +192,14 @@ def main() -> None:
     parser.add_argument("--retrieval-only", action="store_true", help="évaluer seulement la recherche (gratuit, rapide)")
     parser.add_argument("--no-judge", action="store_true", help="ne pas utiliser le LLM juge")
     parser.add_argument("--embedding-model", default=rag.store.EMBEDDING_MODEL, help="modèle d'embeddings fastembed à tester")
+    parser.add_argument("--chunk-size", type=int, default=rag.store.CHUNK_SIZE, help="taille des passages (caractères)")
+    parser.add_argument("--overlap", type=int, default=rag.store.CHUNK_OVERLAP, help="chevauchement des passages")
+    parser.add_argument("--hybrid", action=argparse.BooleanOptionalAction, default=rag.store.HYBRID,
+                        help="recherche hybride sémantique + BM25 (--no-hybrid pour la désactiver)")
     args = parser.parse_args()
     rag.store.EMBEDDING_MODEL = args.embedding_model
+    rag.store.CHUNK_SIZE, rag.store.CHUNK_OVERLAP, rag.store.HYBRID = args.chunk_size, args.overlap, args.hybrid
+    config = describe_config(args.embedding_model, args.chunk_size, args.overlap, args.hybrid)
 
     questions = json.loads((HERE / "questions.json").read_text())
     store = build_store()
@@ -228,16 +239,15 @@ def main() -> None:
             status += f" · juge {'✓' if row['judge_correct'] else '✗' if row['judge_correct'] is False else '–'}"
         print(f"{q['id']:<22} {status}")
 
-    emb = args.embedding_model.split("/")[-1]
-    label = f"Recherche seule ({emb})" if args.retrieval_only else f"{args.provider} · `{args.model}`"
+    label = "Recherche seule" if args.retrieval_only else f"{args.provider} · `{args.model}`"
     summary = summarize(rows, label, args.retrieval_only)
     print("\n" + json.dumps(summary, ensure_ascii=False, indent=2))
 
     RESULTS_DIR.mkdir(exist_ok=True)
-    name = f"retrieval-{emb}" if args.retrieval_only else f"{args.provider}-{args.model}-{emb}"
+    name = ("retrieval" if args.retrieval_only else f"{args.provider}-{args.model}") + f"-{config}"
     slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
     (RESULTS_DIR / f"{slug}.json").write_text(json.dumps(
-        {"summary": summary, "embedding_model": args.embedding_model, "rows": rows},
+        {"summary": summary, "embedding_model": args.embedding_model, "config": config, "rows": rows},
         ensure_ascii=False, indent=2,
     ))
     write_report()

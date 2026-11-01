@@ -1,0 +1,426 @@
+{
+  "summary": {
+    "label": "Recherche seule",
+    "questions": 20,
+    "retrieval": {
+      "hit@1": 77.8,
+      "hit@5": 100.0,
+      "source@1": 100.0,
+      "mrr": 0.88
+    }
+  },
+  "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "config": "MiniLM-L12-v2-1000c-200o-hybride",
+  "rows": [
+    {
+      "id": "horaires",
+      "question": "Quelles sont les plages horaires fixes chez NovaTech ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "de 10 h à 12 h et de 14 h à 16 h 30",
+      "reference": "Essentiel : De 10 h à 12 h et de 14 h à 16 h 30.",
+      "facts": [
+        [
+          "10h"
+        ],
+        [
+          "16h30",
+          "16:30"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "periode-essai-cadre",
+      "question": "Combien de temps dure la période d'essai d'un cadre ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "4 mois pour les cadres",
+      "reference": "Essentiel : 4 mois. Facultatif : renouvelable une fois avec l'accord écrit du salarié.",
+      "facts": [
+        [
+          "4mois",
+          "quatremois"
+        ]
+      ],
+      "rank": 2,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "conges-payes",
+      "question": "J'ai droit à combien de vacances par an ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "30 jours ouvrables (5 semaines) par an",
+      "reference": "Essentiel : 30 jours ouvrables par an (5 semaines). Facultatif : 10 jours de RTT en plus pour les cadres au forfait jours.",
+      "facts": [
+        [
+          "30jours",
+          "5semaines",
+          "cinqsemaines"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "teletravail-jours",
+      "question": "Combien de jours de télétravail sont autorisés par semaine ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "jusqu'à 2 jours par semaine",
+      "reference": "Essentiel : Jusqu'à 2 jours par semaine. Facultatif : après 3 mois d'ancienneté, sur accord du manager.",
+      "facts": [
+        [
+          "2jours",
+          "deuxjours"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "teletravail-lundi",
+      "question": "Puis-je travailler de chez moi le lundi ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "ne peuvent pas être le lundi",
+      "reference": "Essentiel : Non, le lundi est exclu du télétravail. Facultatif : c'est le jour de la réunion d'équipe.",
+      "facts": [
+        [
+          "lundi"
+        ],
+        [
+          "réunion",
+          "non",
+          "pas"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "indemnite-teletravail",
+      "question": "Combien l'entreprise verse-t-elle pour le télétravail ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "2,50 euros par jour télétravaillé",
+      "reference": "Essentiel : 2,50 euros par jour télétravaillé, dans la limite de 50 euros par mois.",
+      "facts": [
+        [
+          "2,50",
+          "2.50",
+          "2,5"
+        ],
+        [
+          "50"
+        ]
+      ],
+      "rank": 3,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "report-conges",
+      "question": "Que deviennent mes jours de congé non pris au 31 mai ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "reportés jusqu'au 31 décembre suivant, dans la limite de 5 jours",
+      "reference": "Essentiel : Ils peuvent être reportés jusqu'au 31 décembre suivant, dans la limite de 5 jours.",
+      "facts": [
+        [
+          "31décembre"
+        ],
+        [
+          "5jours",
+          "cinqjours"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "repas-client",
+      "question": "Quel est le plafond de remboursement d'un repas avec un client ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "40 euros pour un repas avec un client",
+      "reference": "Essentiel : 40 euros. Facultatif : le nom du client doit être indiqué.",
+      "facts": [
+        [
+          "40"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "hotel-lyon",
+      "question": "Combien puis-je dépenser pour une nuit d'hôtel à Lyon ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "95 euros par nuit dans les autres villes",
+      "reference": "Essentiel : 95 euros par nuit (plafond des villes autres que Paris). Facultatif : petit-déjeuner compris.",
+      "facts": [
+        [
+          "95"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "avion-3h",
+      "question": "Ai-je le droit de prendre l'avion pour un trajet de 3 heures ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "trajets de moins de 4 heures",
+      "reference": "Essentiel : Non : sous 4 heures de trajet, il faut prendre le train (seconde classe). Facultatif : l'avion n'est autorisé qu'au-delà, en classe économique.",
+      "facts": [
+        [
+          "train"
+        ],
+        [
+          "4heures",
+          "4h",
+          "quatreheures"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "delai-note-frais",
+      "question": "Dans quel délai faut-il déclarer une note de frais ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "au plus tard 30 jours après la dépense",
+      "reference": "Essentiel : Au plus tard 30 jours après la dépense. Facultatif : via l'application NovaFrais.",
+      "facts": [
+        [
+          "30jours",
+          "trentejours"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "budget-formation",
+      "question": "Quel budget ai-je pour me former chaque année ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "budget de 1 200 euros par an",
+      "reference": "Essentiel : 1 200 euros par an. Facultatif : pour des formations liées au poste, en plus du CPF.",
+      "facts": [
+        [
+          "1200",
+          "1.200"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "velo",
+      "question": "Je viens au bureau à vélo, est-ce que j'ai droit à quelque chose ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "forfait mobilités durables de 300 euros par an",
+      "reference": "Essentiel : Oui, un forfait mobilités durables de 300 euros par an. Facultatif : à condition de venir à vélo au moins 100 jours par an.",
+      "facts": [
+        [
+          "300"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "code-e1",
+      "question": "Mon thermostat affiche E1, qu'est-ce que ça veut dire ?",
+      "source": "manuel_thermo_one.docx",
+      "evidence": "« E1 » : le relais chaudière ne répond pas",
+      "reference": "Essentiel : Le relais chaudière ne répond pas. Facultatif : vérifier qu'il est alimenté (voyant vert) et à moins de 30 mètres du thermostat.",
+      "facts": [
+        [
+          "relais"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "garantie",
+      "question": "Combien de temps le Thermo One est-il garanti ?",
+      "source": "manuel_thermo_one.docx",
+      "evidence": "garanti 3 ans",
+      "reference": "Essentiel : 3 ans. Facultatif : à partir de la date d'achat, sur présentation de la facture.",
+      "facts": [
+        [
+          "3ans",
+          "troisans"
+        ]
+      ],
+      "rank": 2,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "hors-gel",
+      "question": "À quelle température le mode hors-gel maintient-il la maison ?",
+      "source": "manuel_thermo_one.docx",
+      "evidence": "Mode Hors-gel : maintient 7 °C",
+      "reference": "Essentiel : 7 °C. Facultatif : mode prévu pour les absences de plus de 48 heures.",
+      "facts": [
+        [
+          "7°c",
+          "7degrés",
+          "7°"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "wifi-5ghz",
+      "question": "Le thermostat ne trouve pas mon Wi-Fi 5 GHz, pourquoi ?",
+      "source": "manuel_thermo_one.docx",
+      "evidence": "uniquement aux réseaux Wi-Fi 2,4 GHz",
+      "reference": "Essentiel : Le thermostat ne se connecte qu'aux réseaux Wi-Fi 2,4 GHz.",
+      "facts": [
+        [
+          "2,4",
+          "2.4"
+        ]
+      ],
+      "rank": 2,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "origine-rag",
+      "question": "Qui a popularisé le terme RAG, et en quelle année ?",
+      "source": "comprendre_le_rag.md",
+      "evidence": "popularisé en 2020 par un article de chercheurs de Facebook AI Research",
+      "reference": "Essentiel : Des chercheurs de Facebook AI Research (Lewis et al.), en 2020.",
+      "facts": [
+        [
+          "2020"
+        ],
+        [
+          "facebook",
+          "lewis",
+          "meta"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "comprendre_le_rag.md",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "hors-sujet-salaire",
+      "question": "Quel est le salaire moyen d'un développeur chez NovaTech ?",
+      "source": null,
+      "evidence": null,
+      "reference": "L'information n'est pas dans les documents : la réponse doit le dire, sans inventer de montant.",
+      "facts": null,
+      "rank": null,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    },
+    {
+      "id": "hors-sujet-prix",
+      "question": "Combien coûte le thermostat Thermo One ?",
+      "source": null,
+      "evidence": null,
+      "reference": "L'information n'est pas dans les documents : la réponse doit le dire, sans inventer de prix.",
+      "facts": null,
+      "rank": null,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": null,
+      "facts_ok": null,
+      "judge_correct": null,
+      "judge_reason": null,
+      "seconds": 0
+    }
+  ]
+}

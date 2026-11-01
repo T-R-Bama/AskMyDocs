@@ -23,17 +23,30 @@ La qualité du RAG est **mesurée** sur un jeu de 20 questions avec réponses at
 | | `gpt-oss-120b` (Groq, démo) | `gemma3:12b` (Ollama, local) |
 |---|---|---|
 | **Bon passage transmis au LLM** (top 5) | 100 % | 100 % |
+| **Bon passage en 1ʳᵉ position** | 77,8 % | 77,8 % |
 | **Réponses correctes** (LLM juge) | **100 %** | 95 %¹ |
-| **Faits attendus présents** (vérification déterministe) | 100 % | 100 % |
+| **Faits attendus présents** (vérification déterministe) | 100 % | 94 %¹ |
 | **Refus d'inventer** sur les questions hors sujet | 100 % | 100 % |
 | **Réponses qui citent leurs sources** | 100 % | 100 % |
 
-¹ L'unique écart est une erreur du juge (réponse exacte avec un détail en plus) ; en relecture manuelle, les 20 réponses sont correctes.
+¹ Relues à la main, les 20 réponses sont correctes : le juge a refusé une réponse exacte qui ajoutait un détail vrai, et la vérification des faits a refusé une réponse juste formulée sans le mot attendu.
 
-**Ce que la mesure a montré :** le bon passage arrive toujours parmi les 5 envoyés au LLM, mais en **1ʳᵉ position dans seulement 56 % des cas**. En comparant les modèles d'embeddings, `paraphrase-multilingual-mpnet-base-v2` fait monter ce taux à **72 %**, au prix d'un modèle 4 fois plus lourd. La recherche est donc le premier levier d'amélioration (voir les [pistes](#-pistes-damélioration)).
+### De la mesure à l'amélioration
+
+La première évaluation a montré que le bon passage n'arrivait en tête que dans **56 %** des cas. L'analyse des échecs a révélé que le modèle d'embeddings **tronque les textes à 128 tokens** : 43 % du contenu des passages était invisible pour la recherche. Chaque piste a ensuite été mesurée :
+
+| Configuration de la recherche | Bon passage en 1ʳᵉ position | MRR |
+|---|---|---|
+| Sémantique seule (départ) | 55,6 % | 0,750 |
+| Passages plus courts pour éviter la troncature (300 à 600 caractères) | 38,9 à 61,1 % | 0,64 à 0,74 |
+| Modèle d'embeddings 4× plus gros | 72,2 % | 0,861 |
+| **Hybride sémantique + BM25 (fusion RRF), modèle léger — retenue** | **77,8 %** | **0,880** |
+
+Raccourcir les passages, le correctif « évident », **dégradait** souvent les résultats. La **recherche hybride** fait mieux que le gros modèle, sans alourdir l'application : c'est elle qui tourne dans la démo. Détails et limites dans [l'analyse complète](evaluation/README.md#ce-que-lévaluation-a-appris).
 
 ```bash
-python evaluation/run_eval.py --retrieval-only                                   # recherche seule, gratuit
+python evaluation/run_eval.py --retrieval-only --no-hybrid                       # recherche seule, sans BM25
+python evaluation/run_eval.py --retrieval-only                                   # recherche seule, hybride
 python evaluation/run_eval.py --provider groq --model openai/gpt-oss-120b         # pipeline complet
 ```
 
@@ -48,7 +61,7 @@ python evaluation/run_eval.py --provider groq --model openai/gpt-oss-120b       
   | **Groq** | Offre gratuite | Démo en ligne, réponses très rapides |
   | **Ollama** | 100 % gratuit | Usage local et privé, aucune donnée ne quitte la machine |
   | **Claude** | Payant à l'usage | Qualité maximale sur des documents complexes |
-- **Recherche sémantique multilingue** : « vacances » retrouve un passage qui parle de « congés payés ».
+- **Recherche hybride multilingue** : le sens (« vacances » retrouve « congés payés ») et les mots exacts (« E1 », « vélo ») sont combinés.
 - **Conversation suivie** : le chatbot tient compte des derniers échanges.
 - **Démo prête à l'emploi** : trois documents d'exemple et des questions suggérées pour tester en un clic.
 
@@ -66,7 +79,7 @@ flowchart LR
     end
     subgraph Question
         Q[❓ Question] --> QE[Embedding]
-        QE --> S{Recherche<br/>similarité cosinus}
+        QE --> S{Recherche hybride<br/>cosinus + BM25}
         E --> S
         S --> P[5 passages<br/>les plus proches]
         P --> L[🤖 LLM<br/>Groq · Ollama · Claude]
@@ -79,7 +92,7 @@ flowchart LR
 2. **Découpage** en morceaux d'environ 1 000 caractères avec 200 caractères de chevauchement, en coupant de préférence en fin de phrase.
 3. **Vectorisation** avec `paraphrase-multilingual-MiniLM-L12-v2` (via `fastembed`, exécuté localement en ONNX).
 4. **Stockage** dans ChromaDB (sur disque en local, en mémoire et isolé par visiteur dans la démo).
-5. **Recherche** des 5 passages les plus proches de la question.
+5. **Recherche hybride** : le classement sémantique (similarité cosinus) et un classement par mots-clés BM25 sont fusionnés par rangs réciproques (RRF) ; les 5 meilleurs passages sont retenus.
 6. **Génération** : les passages sont injectés dans la consigne du LLM, qui doit s'y limiter et citer ses sources.
 
 ## 🚀 Installation locale
@@ -144,6 +157,7 @@ En mode démo, chaque visiteur dispose de sa propre base en mémoire, prérempli
 | Interface | **Streamlit** | Chat, upload et streaming natifs ; déploiement gratuit sur Community Cloud |
 | Embeddings | **fastembed** + MiniLM multilingue | Bon en français, gratuit, et sans PyTorch : l'installation pèse ~800 Mo de moins, ce qui permet de tenir dans les ressources gratuites de Streamlit Cloud |
 | Base vectorielle | **ChromaDB** | Fonctionne sans serveur, persistante sur disque ou en mémoire |
+| Recherche | **Hybride sémantique + BM25** (fusion RRF) | +22 points de « bon passage en tête » mesurés, sans modèle supplémentaire ; BM25 en Python pur |
 | LLM | **Groq / Ollama / Claude** | Le même pipeline fonctionne avec un modèle cloud gratuit, local ou haut de gamme |
 | Prompting | Passages balisés `<document>` numérotés | Facilite la citation des sources et limite les hallucinations |
 
@@ -154,7 +168,7 @@ AskMyDocs/
 ├── app.py                  # Interface Streamlit (chat, choix du moteur, documents)
 ├── rag/
 │   ├── loaders.py          # Extraction du texte et découpage en morceaux
-│   ├── store.py            # Embeddings et base vectorielle ChromaDB
+│   ├── store.py            # Embeddings, base vectorielle ChromaDB et recherche hybride BM25
 │   └── llm.py              # Prompt et appels aux LLM (Groq, Ollama, Claude)
 ├── exemples/               # Documents d'exemple de la démo (fictifs)
 ├── evaluation/             # Jeu de 20 questions, script d'évaluation et résultats
@@ -164,7 +178,7 @@ AskMyDocs/
 
 ## 🔭 Pistes d'amélioration
 
-- Améliorer le classement des passages (56 % en 1ʳᵉ position aujourd'hui) : modèle d'embeddings plus fin, recherche hybride (sémantique + mots-clés BM25) ou reclassement (*reranking*), chaque option étant validée par l'évaluation.
+- Améliorer encore le classement des passages (78 % en 1ʳᵉ position) : reclassement (*reranking*) par un modèle *cross-encoder*, ou modèle d'embeddings acceptant des textes plus longs, chaque option étant validée par l'évaluation.
 - Reformulation des questions de suivi (« et pour les cadres ? ») avant la recherche.
 - OCR pour les PDF scannés et extraction des tableaux.
 - Étendre le jeu d'évaluation avec des questions écrites par d'autres personnes et des documents plus longs.
