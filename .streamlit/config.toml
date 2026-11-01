@@ -1,0 +1,9 @@
+[server]
+# Limite la taille des fichiers envoyés (en Mo), utile pour la démo publique
+maxUploadSize = 10
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+primaryColor = "#6C5CE7"

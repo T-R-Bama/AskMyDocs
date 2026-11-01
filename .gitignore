@@ -1,0 +1,10 @@
+.venv/
+data/
+__pycache__/
+.env
+.DS_Store
+# Skills Streamlit installés localement (liens symboliques propres à cette machine)
+.agents/
+.claude/skills/
+.streamlit/secrets.toml
+.claude/launch.json
