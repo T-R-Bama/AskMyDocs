@@ -13,7 +13,8 @@ import groq
 import ollama
 
 CLAUDE_MODEL = "claude-opus-5-5"
-GROQ_DEFAULT_MODEL = "llama-3.3-70b-versatile"
+# Modèles Groq proposés en premier, par ordre de préférence (le catalogue évolue)
+GROQ_PREFERRED_MODELS = ["openai/gpt-oss-120b", "llama-3.3-70b-versatile", "openai/gpt-oss-20b"]
 OLLAMA_CONTEXT = 8192  # taille de contexte demandée à Ollama (tokens)
 
 SYSTEM_PROMPT = """Tu es un assistant qui répond aux questions en s'appuyant sur les documents fournis par l'utilisateur.
@@ -55,16 +56,15 @@ def stream_ollama(model: str, history: list[dict], question: str, passages: list
 
 
 def list_groq_models(client: groq.Groq) -> list[str]:
-    """Modèles de chat disponibles sur Groq, le modèle par défaut en premier."""
-    skip = ("whisper", "tts", "guard", "playai", "orpheus", "compound")
+    """Modèles de chat disponibles sur Groq, les modèles préférés en premier."""
+    # Modèles audio, de modération, ou spécialisés dans une autre langue (allam : arabe)
+    skip = ("whisper", "tts", "guard", "playai", "orpheus", "compound", "allam")
     models = sorted(
         m.id for m in client.models.list().data
         if getattr(m, "active", True) and not any(s in m.id.lower() for s in skip)
     )
-    if GROQ_DEFAULT_MODEL in models:
-        models.remove(GROQ_DEFAULT_MODEL)
-        models.insert(0, GROQ_DEFAULT_MODEL)
-    return models
+    preferred = [m for m in GROQ_PREFERRED_MODELS if m in models]
+    return preferred + [m for m in models if m not in preferred]
 
 
 def stream_groq(
@@ -73,7 +73,8 @@ def stream_groq(
     messages = [{"role": "system", "content": SYSTEM_PROMPT}] + build_messages(history, question, passages)
     for chunk in client.chat.completions.create(model=model, messages=messages, stream=True):
         if chunk.choices and chunk.choices[0].delta.content:
-            yield chunk.choices[0].delta.content
+            # Les modèles gpt-oss citent parfois avec des crochets 【1】 : on les uniformise
+            yield chunk.choices[0].delta.content.replace("【", "[").replace("】", "]")
 
 
 def stream_claude(
