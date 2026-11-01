@@ -10,11 +10,32 @@
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-vector%20store-orange)
 ![Groq](https://img.shields.io/badge/LLM-Groq%20%7C%20Ollama%20%7C%20Claude-6C5CE7)
 
-[**Essayer la démo**](https://chatbot-rag-trbama.streamlit.app/) · [Fonctionnement](#-fonctionnement) · [Installation](#-installation-locale) · [Choix techniques](#-choix-techniques)
+[**Essayer la démo**](https://chatbot-rag-trbama.streamlit.app/) · [Évaluation](#-évaluation) · [Fonctionnement](#-fonctionnement) · [Installation](#-installation-locale) · [Choix techniques](#-choix-techniques)
 
 ![Aperçu du chatbot](docs/apercu.jpg)
 
 </div>
+
+## 📊 Évaluation
+
+La qualité du RAG est **mesurée** sur un jeu de 20 questions avec réponses attendues, dont 2 pièges dont la réponse n'est pas dans les documents ([méthode](evaluation/README.md) · [résultats détaillés](evaluation/RESULTS.md)).
+
+| | `gpt-oss-120b` (Groq, démo) | `gemma3:12b` (Ollama, local) |
+|---|---|---|
+| **Bon passage transmis au LLM** (top 5) | 100 % | 100 % |
+| **Réponses correctes** (LLM juge) | **100 %** | 95 %¹ |
+| **Faits attendus présents** (vérification déterministe) | 100 % | 100 % |
+| **Refus d'inventer** sur les questions hors sujet | 100 % | 100 % |
+| **Réponses qui citent leurs sources** | 100 % | 100 % |
+
+¹ L'unique écart est une erreur du juge (réponse exacte avec un détail en plus) ; en relecture manuelle, les 20 réponses sont correctes.
+
+**Ce que la mesure a montré :** le bon passage arrive toujours parmi les 5 envoyés au LLM, mais en **1ʳᵉ position dans seulement 56 % des cas**. En comparant les modèles d'embeddings, `paraphrase-multilingual-mpnet-base-v2` fait monter ce taux à **72 %**, au prix d'un modèle 4 fois plus lourd. La recherche est donc le premier levier d'amélioration (voir les [pistes](#-pistes-damélioration)).
+
+```bash
+python evaluation/run_eval.py --retrieval-only                                   # recherche seule, gratuit
+python evaluation/run_eval.py --provider groq --model openai/gpt-oss-120b         # pipeline complet
+```
 
 ## ✨ Fonctionnalités
 
@@ -136,16 +157,17 @@ AskMyDocs/
 │   ├── store.py            # Embeddings et base vectorielle ChromaDB
 │   └── llm.py              # Prompt et appels aux LLM (Groq, Ollama, Claude)
 ├── exemples/               # Documents d'exemple de la démo (fictifs)
+├── evaluation/             # Jeu de 20 questions, script d'évaluation et résultats
 ├── .streamlit/             # Configuration et modèle de secrets
 └── requirements.txt
 ```
 
 ## 🔭 Pistes d'amélioration
 
-- Recherche hybride (sémantique + mots-clés BM25) et reclassement (*reranking*) des passages.
+- Améliorer le classement des passages (56 % en 1ʳᵉ position aujourd'hui) : modèle d'embeddings plus fin, recherche hybride (sémantique + mots-clés BM25) ou reclassement (*reranking*), chaque option étant validée par l'évaluation.
 - Reformulation des questions de suivi (« et pour les cadres ? ») avant la recherche.
 - OCR pour les PDF scannés et extraction des tableaux.
-- Évaluation automatique de la qualité des réponses sur un jeu de questions de référence.
+- Étendre le jeu d'évaluation avec des questions écrites par d'autres personnes et des documents plus longs.
 
 ## 📄 Documents d'exemple
 

@@ -1,0 +1,432 @@
+{
+  "summary": {
+    "label": "groq · `openai/gpt-oss-120b`",
+    "questions": 20,
+    "retrieval": {
+      "hit@1": 55.6,
+      "hit@5": 100.0,
+      "source@1": 94.4,
+      "mrr": 0.75
+    },
+    "generation": {
+      "facts_ok": 100.0,
+      "judge_correct": 100.0,
+      "abstention_ok": 100.0,
+      "cites_source": 100.0,
+      "avg_seconds": 10.3
+    }
+  },
+  "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "rows": [
+    {
+      "id": "horaires",
+      "question": "Quelles sont les plages horaires fixes chez NovaTech ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "de 10 h à 12 h et de 14 h à 16 h 30",
+      "reference": "Essentiel : De 10 h à 12 h et de 14 h à 16 h 30.",
+      "facts": [
+        [
+          "10h"
+        ],
+        [
+          "16h30",
+          "16:30"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "Chez NovaTech, les plages horaires fixes pendant lesquelles chaque salarié doit être disponible sont :\n\n- **de 10 h à 12 h**  \n- **de 14 h à 16 h 30**  \n\nCes informations proviennent du guide du salarié de NovaTech [1].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot reproduit exactement les plages horaires essentielles (10 h–12 h et 14 h–16 h 30) sans ajouter d'information contradictoire.",
+      "seconds": 0.83
+    },
+    {
+      "id": "periode-essai-cadre",
+      "question": "Combien de temps dure la période d'essai d'un cadre ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "4 mois pour les cadres",
+      "reference": "Essentiel : 4 mois. Facultatif : renouvelable une fois avec l'accord écrit du salarié.",
+      "facts": [
+        [
+          "4mois",
+          "quatremois"
+        ]
+      ],
+      "rank": 2,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "La période d’essai d’un cadre chez NovaTech est de **4 mois** (et peut être renouvelée une fois avec l’accord écrit du salarié)[2].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "La réponse reprend l'essentiel (4 mois) et ne contredit pas la référence, le détail facultatif est correct mais optionnel.",
+      "seconds": 0.51
+    },
+    {
+      "id": "conges-payes",
+      "question": "J'ai droit à combien de vacances par an ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "30 jours ouvrables (5 semaines) par an",
+      "reference": "Essentiel : 30 jours ouvrables par an (5 semaines). Facultatif : 10 jours de RTT en plus pour les cadres au forfait jours.",
+      "facts": [
+        [
+          "30jours",
+          "5semaines",
+          "cinqsemaines"
+        ]
+      ],
+      "rank": 2,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "En vertu du **Guide du salarié** de NovaTech, chaque salarié à temps plein cumule :\n\n- **2,5 jours ouvrables de congés payés par mois**, ce qui correspond à **30 jours ouvrables (ou 5 semaines) par an**[2].  \n\nÀ cela s’ajoutent, pour les cadres au forfait jours, **10 jours de RTT** supplémentaires chaque année[2].  \n\nDonc, en règle générale, vous avez droit à **30 jours de congés payés** par an, avec la possibilité d’obtenir **10 jours de RTT** si vous êtes cadre au forfait jours.",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot reproduit l’essentiel (30 jours ouvrables) et ajoute correctement les 10 jours de RTT sans contradiction.",
+      "seconds": 1.12
+    },
+    {
+      "id": "teletravail-jours",
+      "question": "Combien de jours de télétravail sont autorisés par semaine ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "jusqu'à 2 jours par semaine",
+      "reference": "Essentiel : Jusqu'à 2 jours par semaine. Facultatif : après 3 mois d'ancienneté, sur accord du manager.",
+      "facts": [
+        [
+          "2jours",
+          "deuxjours"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "Le nombre de jours de télétravail autorisé est **deux jours par semaine** (après 3 mois d’ancienneté et sous accord du manager)[1].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "La réponse reprend l'essentiel (deux jours par semaine) et ne contredit pas la référence.",
+      "seconds": 0.55
+    },
+    {
+      "id": "teletravail-lundi",
+      "question": "Puis-je travailler de chez moi le lundi ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "ne peuvent pas être le lundi",
+      "reference": "Essentiel : Non, le lundi est exclu du télétravail. Facultatif : c'est le jour de la réunion d'équipe.",
+      "facts": [
+        [
+          "lundi"
+        ],
+        [
+          "réunion",
+          "non",
+          "pas"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "Non. Chez NovaTech, le télétravail est possible à raison de deux jours par semaine après trois mois d’ancienneté, mais les jours de télétravail **ne peuvent pas être le lundi**, qui est réservé à la réunion d’équipe [1].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot indique « Non » et précise que le télétravail ne peut pas être le lundi, respectant ainsi l’essentiel de la référence sans contradiction.",
+      "seconds": 9.56
+    },
+    {
+      "id": "indemnite-teletravail",
+      "question": "Combien l'entreprise verse-t-elle pour le télétravail ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "2,50 euros par jour télétravaillé",
+      "reference": "Essentiel : 2,50 euros par jour télétravaillé, dans la limite de 50 euros par mois.",
+      "facts": [
+        [
+          "2,50",
+          "2.50",
+          "2,5"
+        ],
+        [
+          "50"
+        ]
+      ],
+      "rank": 3,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "L’entreprise verse une indemnité de 2,50 € par jour de télétravail, avec un plafond de 50 € par mois[3].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot reprend exactement l'information essentielle (2,50 € par jour, plafond de 50 € par mois) sans contradiction.",
+      "seconds": 25.77
+    },
+    {
+      "id": "report-conges",
+      "question": "Que deviennent mes jours de congé non pris au 31 mai ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "reportés jusqu'au 31 décembre suivant, dans la limite de 5 jours",
+      "reference": "Essentiel : Ils peuvent être reportés jusqu'au 31 décembre suivant, dans la limite de 5 jours.",
+      "facts": [
+        [
+          "31décembre"
+        ],
+        [
+          "5jours",
+          "cinqjours"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "Selon le guide du salarié, les congés non pris au **31 mai** peuvent être reportés : ils sont transférables jusqu’au **31 décembre de l’année suivante**, mais seulement dans la limite de **5 jours** de report. [1]",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot reprend exactement l'information essentielle sans contradiction.",
+      "seconds": 12.69
+    },
+    {
+      "id": "repas-client",
+      "question": "Quel est le plafond de remboursement d'un repas avec un client ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "40 euros pour un repas avec un client",
+      "reference": "Essentiel : 40 euros. Facultatif : le nom du client doit être indiqué.",
+      "facts": [
+        [
+          "40"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "Le plafond de remboursement d’un repas avec un client est de **40 €** (le nom du client doit être indiqué)[1].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "La réponse reprend l'essentiel (40 €) et ne contredit rien, le facultatif est simplement ajouté.",
+      "seconds": 11.43
+    },
+    {
+      "id": "hotel-lyon",
+      "question": "Combien puis-je dépenser pour une nuit d'hôtel à Lyon ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "95 euros par nuit dans les autres villes",
+      "reference": "Essentiel : 95 euros par nuit (plafond des villes autres que Paris). Facultatif : petit-déjeuner compris.",
+      "facts": [
+        [
+          "95"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "Le plafond de remboursement pour une nuit d’hôtel en dehors de Paris, donc à Lyon, est de **95 €** par nuit (petit‑déjeuner compris)[1].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "La réponse reprend l'essentiel (95 € par nuit) et ne contredit rien, le facultatif est simplement ajouté.",
+      "seconds": 11.75
+    },
+    {
+      "id": "avion-3h",
+      "question": "Ai-je le droit de prendre l'avion pour un trajet de 3 heures ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "trajets de moins de 4 heures",
+      "reference": "Essentiel : Non : sous 4 heures de trajet, il faut prendre le train (seconde classe). Facultatif : l'avion n'est autorisé qu'au-delà, en classe économique.",
+      "facts": [
+        [
+          "train"
+        ],
+        [
+          "4heures",
+          "4h",
+          "quatreheures"
+        ]
+      ],
+      "rank": 3,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": "Non, vous ne pouvez pas prendre l’avion pour un trajet de 3 heures. Le guide indique que « le train en seconde classe est la règle pour les trajets de moins de 4 heures » et que « l’avion n’est autorisé qu’au‑delà, en classe économique »[3]. Donc, pour un déplacement de 3 heures, le moyen de transport autorisé est le train, pas l’avion.",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "La réponse reprend l'essentiel (non, le train en seconde classe pour <4 h) et ne contredit rien.",
+      "seconds": 11.98
+    },
+    {
+      "id": "delai-note-frais",
+      "question": "Dans quel délai faut-il déclarer une note de frais ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "au plus tard 30 jours après la dépense",
+      "reference": "Essentiel : Au plus tard 30 jours après la dépense. Facultatif : via l'application NovaFrais.",
+      "facts": [
+        [
+          "30jours",
+          "trentejours"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "Il faut soumettre la note de frais, avec le justificatif, **au plus tard 30 jours après la dépense** via l’application NovaFrais[1].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot reprend l'essentiel (au plus tard 30 jours après la dépense) et ajoute la partie facultative sans contradiction.",
+      "seconds": 11.52
+    },
+    {
+      "id": "budget-formation",
+      "question": "Quel budget ai-je pour me former chaque année ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "budget de 1 200 euros par an",
+      "reference": "Essentiel : 1 200 euros par an. Facultatif : pour des formations liées au poste, en plus du CPF.",
+      "facts": [
+        [
+          "1200",
+          "1.200"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "Vous disposez d’un budget de **1 200 € par an** dédié aux formations liées à votre poste (en plus de votre CPF)[1].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot reprend l’essentiel (1 200 € par an) et n’introduit aucune contradiction, le détail facultatif est compatible.",
+      "seconds": 11.75
+    },
+    {
+      "id": "velo",
+      "question": "Je viens au bureau à vélo, est-ce que j'ai droit à quelque chose ?",
+      "source": "guide_salarie_novatech.pdf",
+      "evidence": "forfait mobilités durables de 300 euros par an",
+      "reference": "Essentiel : Oui, un forfait mobilités durables de 300 euros par an. Facultatif : à condition de venir à vélo au moins 100 jours par an.",
+      "facts": [
+        [
+          "300"
+        ]
+      ],
+      "rank": 3,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "Oui. Selon le guide du salarié, NovaTech attribue un **forfait mobilités durables de 300 € par an** aux salariés qui se déplacent à vélo au moins 100 jours dans l’année [3]. Vous pouvez donc bénéficier de cette indemnité tant que vous respectez le seuil de 100 jours de vélo.",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot reprend l’essentiel (forfait de 300 €) et ne contredit pas la référence",
+      "seconds": 13.42
+    },
+    {
+      "id": "code-e1",
+      "question": "Mon thermostat affiche E1, qu'est-ce que ça veut dire ?",
+      "source": "manuel_thermo_one.docx",
+      "evidence": "« E1 » : le relais chaudière ne répond pas",
+      "reference": "Essentiel : Le relais chaudière ne répond pas. Facultatif : vérifier qu'il est alimenté (voyant vert) et à moins de 30 mètres du thermostat.",
+      "facts": [
+        [
+          "relais"
+        ]
+      ],
+      "rank": 2,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": "L’affichage **« E1 »** indique que le **relais de la chaudière ne répond pas**.  \nIl faut alors :\n\n1. Vérifier que le relais est bien alimenté (le voyant vert doit être allumé).  \n2. S’assurer que le relais se trouve à moins de 30 m du thermostat.\n\nCes actions permettent de rétablir la communication entre le thermostat et le relais.  \n(Source : [2])",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "La réponse reprend l'essentiel (le relais ne répond pas) et les informations facultatives (vérifier l'alimentation et la distance) sans contradiction.",
+      "seconds": 10.81
+    },
+    {
+      "id": "garantie",
+      "question": "Combien de temps le Thermo One est-il garanti ?",
+      "source": "manuel_thermo_one.docx",
+      "evidence": "garanti 3 ans",
+      "reference": "Essentiel : 3 ans. Facultatif : à partir de la date d'achat, sur présentation de la facture.",
+      "facts": [
+        [
+          "3ans",
+          "troisans"
+        ]
+      ],
+      "rank": 2,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": "Le thermostat Thermo One bénéficie d’une garantie de **3 ans** à compter de la date d’achat, sous présentation de la facture[2].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot reprend l'information essentielle (3 ans) et ne contredit pas la référence",
+      "seconds": 12.65
+    },
+    {
+      "id": "hors-gel",
+      "question": "À quelle température le mode hors-gel maintient-il la maison ?",
+      "source": "manuel_thermo_one.docx",
+      "evidence": "Mode Hors-gel : maintient 7 °C",
+      "reference": "Essentiel : 7 °C. Facultatif : mode prévu pour les absences de plus de 48 heures.",
+      "facts": [
+        [
+          "7°c",
+          "7degrés",
+          "7°"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": "Le mode Hors‑gel maintient la température de la maison à **7 °C** [1][2].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "La réponse reprend l'information essentielle (7 °C) sans contradiction et l'omission de la partie facultative est autorisée.",
+      "seconds": 11.82
+    },
+    {
+      "id": "wifi-5ghz",
+      "question": "Le thermostat ne trouve pas mon Wi-Fi 5 GHz, pourquoi ?",
+      "source": "manuel_thermo_one.docx",
+      "evidence": "uniquement aux réseaux Wi-Fi 2,4 GHz",
+      "reference": "Essentiel : Le thermostat ne se connecte qu'aux réseaux Wi-Fi 2,4 GHz.",
+      "facts": [
+        [
+          "2,4",
+          "2.4"
+        ]
+      ],
+      "rank": 2,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": "Le thermostat Thermo One ne recherche pas les réseaux 5 GHz parce qu’il n’est compatible qu’avec les réseaux Wi‑Fi 2,4 GHz. Le manuel indique clairement : « Le thermostat se connecte uniquement aux réseaux Wi‑Fi 2,4 GHz »[2], et en cas de problème il faut même vérifier que la box diffuse bien un réseau 2,4 GHz[1].  \n\nDonc, si votre box ne propose que du 5 GHz ou que le réseau 2,4 GHz est désactivé, le thermostat ne le verra pas. Activez le réseau 2,4 GHz (ou créez un réseau séparé en 2,4 GHz) et le thermostat pourra se connecter.",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "La réponse reprend l'essentiel (le thermostat ne fonctionne qu'avec le Wi‑Fi 2,4 GHz) sans contradiction et ajoute des précisions compatibles.",
+      "seconds": 11.89
+    },
+    {
+      "id": "origine-rag",
+      "question": "Qui a popularisé le terme RAG, et en quelle année ?",
+      "source": "comprendre_le_rag.md",
+      "evidence": "popularisé en 2020 par un article de chercheurs de Facebook AI Research",
+      "reference": "Essentiel : Des chercheurs de Facebook AI Research (Lewis et al.), en 2020.",
+      "facts": [
+        [
+          "2020"
+        ],
+        [
+          "facebook",
+          "lewis",
+          "meta"
+        ]
+      ],
+      "rank": 1,
+      "top_source": "comprendre_le_rag.md",
+      "answer": "Le terme **RAG (Retrieval‑Augmented Generation)** a été popularisé en **2020** par un article publié par des chercheurs de **Facebook AI Research** (Lewis et al., « Retrieval‑Augmented Generation for Knowledge‑Intensive NLP Tasks »)[1†L1-L3][2†L6-L9].",
+      "facts_ok": true,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot reproduit exactement l'information essentielle de la référence sans contradiction.",
+      "seconds": 10.63
+    },
+    {
+      "id": "hors-sujet-salaire",
+      "question": "Quel est le salaire moyen d'un développeur chez NovaTech ?",
+      "source": null,
+      "evidence": null,
+      "reference": "L'information n'est pas dans les documents : la réponse doit le dire, sans inventer de montant.",
+      "facts": null,
+      "rank": null,
+      "top_source": "guide_salarie_novatech.pdf",
+      "answer": "Les documents que vous avez fournis ne comportent aucune information concernant le salaire moyen d’un développeur chez NovaTech : le guide du salarié décrit les heures de travail, la période d’essai, les avantages (formation, mutuelle, tickets restaurant, mobilité, indemnité de télétravail, etc.) ainsi que les règles de frais professionnels et de congés, mais il ne mentionne pas les rémunérations ni les fourchettes de salaire pour les postes techniques[1†L1-L4][2†L1-L4][3†L1-L4][4†L1-L4].\n\nDonc, d’après les documents disponibles, je ne peux pas vous donner le salaire moyen d’un développeur chez NovaTech. Pour obtenir cette information, il conviendrait de consulter :\n\n* la grille salariale interne ou le service des ressources humaines de NovaTech,  \n* les offres d’emploi publiées par l’entreprise (qui indiquent parfois une fourchette salariale), ou  \n* des sources externes (sites de comparaison de salaires, enquêtes sectorielles).\n\nCes réponses seraient de nature générale et ne proviennent pas des documents fournis.",
+      "facts_ok": null,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot indique clairement que les documents ne contiennent pas le salaire moyen et ne fournit aucune donnée inventée, conformément à la référence.",
+      "seconds": 13.47
+    },
+    {
+      "id": "hors-sujet-prix",
+      "question": "Combien coûte le thermostat Thermo One ?",
+      "source": null,
+      "evidence": null,
+      "reference": "L'information n'est pas dans les documents : la réponse doit le dire, sans inventer de prix.",
+      "facts": null,
+      "rank": null,
+      "top_source": "manuel_thermo_one.docx",
+      "answer": "Les documents fournis ne mentionnent pas le prix du thermostat Thermo One ; aucune information à ce sujet n’apparaît dans les extraits du manuel d’utilisation ni dans les autres documents.  \nJe ne peux donc pas vous donner de chiffre précis à partir de ces sources. Pour connaître le coût du thermostat, je vous recommande de consulter le site officiel de Thermo One, un revendeur agréé ou la fiche produit correspondante.",
+      "facts_ok": null,
+      "judge_correct": true,
+      "judge_reason": "Le chatbot indique clairement que le prix n'est pas présent dans les documents et ne fournit aucune information inventée.",
+      "seconds": 11.95
+    }
+  ]
+}
