@@ -4,13 +4,13 @@
 
 **Pose des questions à tes documents (PDF, Word, Markdown, pages web) et obtiens des réponses sourcées.**
 
-[![Démo en ligne](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](DEMO_URL)
+[![Démo en ligne](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chatbot-rag-trbama.streamlit.app/)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-vector%20store-orange)
 ![Groq](https://img.shields.io/badge/LLM-Groq%20%7C%20Ollama%20%7C%20Claude-6C5CE7)
 
-[**Essayer la démo**](DEMO_URL) · [Fonctionnement](#-fonctionnement) · [Installation](#-installation-locale) · [Choix techniques](#-choix-techniques)
+[**Essayer la démo**](https://chatbot-rag-trbama.streamlit.app/) · [Fonctionnement](#-fonctionnement) · [Installation](#-installation-locale) · [Choix techniques](#-choix-techniques)
 
 ![Aperçu du chatbot](docs/apercu.jpg)
 
