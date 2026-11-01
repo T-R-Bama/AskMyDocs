@@ -31,7 +31,7 @@ def load_file(name: str, data: bytes) -> list[dict]:
 
 def load_url(url: str) -> list[dict]:
     """Télécharge une page web et en extrait le texte principal."""
-    resp = requests.get(url, timeout=20, headers={"User-Agent": "chatbot-rag/1.0"})
+    resp = requests.get(url, timeout=20, headers={"User-Agent": "AskMyDocs/1.0"})
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
     for tag in soup(["script", "style", "nav", "header", "footer", "aside", "form"]):

@@ -1,4 +1,4 @@
-"""Interface Streamlit du chatbot RAG. Lancer avec : streamlit run app.py"""
+"""Interface Streamlit d'AskMyDocs, chatbot RAG. Lancer avec : streamlit run app.py"""
 
 import os
 from pathlib import Path
@@ -35,7 +35,7 @@ PROVIDER_HELP = {
     CLAUDE: "API Anthropic, payante à l'usage",
 }
 
-st.set_page_config(page_title="Chatbot RAG", page_icon=":material/menu_book:", layout="wide")
+st.set_page_config(page_title="AskMyDocs", page_icon=":material/menu_book:", layout="wide")
 
 
 def setting(name: str) -> str:
@@ -199,7 +199,7 @@ with st.sidebar:
         st.rerun()
 
 # --- Zone de chat ---
-st.title(":material/menu_book: Chatbot RAG")
+st.title(":material/menu_book: AskMyDocs")
 st.caption(
     "Pose des questions sur tes documents : le chatbot retrouve les passages pertinents "
     "et répond en citant ses sources."

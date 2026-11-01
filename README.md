@@ -1,8 +1,8 @@
 <div align="center">
 
-# 📚 Chatbot RAG
+# 📚 AskMyDocs
 
-**Pose des questions à tes documents (PDF, Word, Markdown, pages web) et obtiens des réponses sourcées.**
+**Chatbot RAG : pose des questions à tes documents (PDF, Word, Markdown, pages web) et obtiens des réponses sourcées.**
 
 [![Démo en ligne](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chatbot-rag-trbama.streamlit.app/)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
@@ -66,8 +66,8 @@ flowchart LR
 Prérequis : Python 3.10 ou plus récent.
 
 ```bash
-git clone https://github.com/T-R-Bama/chatbot-rag.git
-cd chatbot-rag
+git clone https://github.com/T-R-Bama/AskMyDocs.git
+cd AskMyDocs
 python3 -m venv .venv
 source .venv/bin/activate        # Windows : .venv\Scripts\activate
 pip install -r requirements.txt
@@ -129,7 +129,7 @@ En mode démo, chaque visiteur dispose de sa propre base en mémoire, prérempli
 ## 📁 Structure du projet
 
 ```
-chatbot-rag/
+AskMyDocs/
 ├── app.py                  # Interface Streamlit (chat, choix du moteur, documents)
 ├── rag/
 │   ├── loaders.py          # Extraction du texte et découpage en morceaux
